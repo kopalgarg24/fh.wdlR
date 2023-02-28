@@ -29,14 +29,14 @@ cromwellSubmitBatch <-
       warning("You did not submit either Batch inputs or Params inputs for this workflow.  Was that on purpose?")
     }
     bodyList <- list(
-      workflowSource = httr::upload_file(WDL))
+      workflowSource = WDL)
 
-    if(is.null(Params) == F & is.null(Batch) == F) { bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(Params))); bodyList <- c(bodyList, workflowInputs_2 = list(httr::upload_file(Batch)))
-    } else if (is.null(Params) == F) { bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(Params)))
-    } else if  (is.null(Batch) == F) { bodyList <- c(bodyList, workflowInputs = list(httr::upload_file(Batch))) }
+    if(is.null(Params) == F & is.null(Batch) == F) { bodyList <- c(bodyList, workflowInputs = list(Params)); bodyList <- c(bodyList, workflowInputs_2 = list(Batch))
+    } else if (is.null(Params) == F) { bodyList <- c(bodyList, workflowInputs = list(Params))
+    } else if  (is.null(Batch) == F) { bodyList <- c(bodyList, workflowInputs = list(Batch)) }
 
-    if(is.null(Dependencies) == F) bodyList <- c(bodyList, workflowDependencies = list(httr::upload_file(Dependencies)))
-    if(is.null(Options) == F) bodyList <- c(bodyList, workflowOptions = list(httr::upload_file(Options)))
+    if(is.null(Dependencies) == F) bodyList <- c(bodyList, workflowDependencies = list(Dependencies))
+    if(is.null(Options) == F) bodyList <- c(bodyList, workflowOptions = list(Options))
     if(is.null(Labels) == F) bodyList <- c(bodyList, labels = list(jsonlite::toJSON(as.list(Labels), auto_unbox = TRUE)))
 
     cromDat <-
